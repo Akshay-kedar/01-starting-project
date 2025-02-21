@@ -1,6 +1,5 @@
-import { Component, computed, signal } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { DUMMY_USERS } from './dummy-users';
-const randomIndex=Math.floor(Math.random()*DUMMY_USERS.length);
 
 @Component({
   selector: 'app-user',
@@ -10,20 +9,17 @@ const randomIndex=Math.floor(Math.random()*DUMMY_USERS.length);
   styleUrl: './user.component.css'
 })
 export class UserComponent {
-  //using angular signale to check the changed value and update the data everywhere
-selectedUsers= signal(DUMMY_USERS[randomIndex])
+  @Input({required:true}) avatar!:string;
+  @Input({required:true})name!:string;
+  @Input({required:true})id!:string;
 
-//effecient way to recompute the property if property changes
-imagepath= computed(()=>'assets/users/'+ this.selectedUsers().avatar)
-
-//get values always act as property we need not to use it as method
-// get imagepath(){
-//   return 'assets/users/'+ this.selectedUsers().avatar
-
-// }
+@Output()  select=new EventEmitter();
+  get imagepath(){
+      return 'assets/users/'+ this.avatar
+    
+    }
 
 onSelectUser(){
-  const randomIndex=Math.floor(Math.random()*DUMMY_USERS.length);
-  this.selectedUsers.set(DUMMY_USERS[randomIndex])
+ this.select.emit(this.id);
 }
 }
