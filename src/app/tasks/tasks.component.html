@@ -1,15 +1,21 @@
-<section>
+
+@if (isAddingTask) {
+    <app-new-task [UserId]="userId" (closeNewTask)="CloseNeWTaskPopup()"/>
+}
+
+
+<section id="tasks">
     <header>
         <h2>{{name}}'s Task</h2>
     
     <menu>
-        <button>Add Task</button>
+        <button (click)="onStartAddTask()">Add Task</button>
     </menu>
 </header>
 <ul>
     @for(task of SelectedUserTask;track task.id){
         <li>
-            <app-task [task]="task"  (Complete)="onCompleteTask($event)"/> 
+            <app-task [task]="task"  /> 
          </li>
     }
    
