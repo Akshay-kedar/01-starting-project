@@ -14,7 +14,7 @@ import { TasksComponent } from './tasks/tasks.component';
 })
 export class AppComponent {
   users=DUMMY_USERS
-selectedUserId='u1'
+selectedUserId=''
 
 get SelectedUser(){
   return this.users.find((user)=>{
@@ -25,5 +25,8 @@ get SelectedUser(){
   onSelectUser(id:string){
    
 this.selectedUserId=id
+  }
+  trackByFn(index: number, user: any) {
+    return user.id; // Ensure 'id' is a unique identifier
   }
 }
